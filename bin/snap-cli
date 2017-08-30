@@ -85,10 +85,12 @@ program
                 return pair.split('=');
             });
         }
+        console.log('connecting to', mongoUri);
         return MongoClient.connect(mongoUri)
             .then(db => {
                 users.init(db);
 
+                console.log('creating new user', username);
                 return users.new(username, email, program.silent, data)
                     .then(() => db.close());
             })
